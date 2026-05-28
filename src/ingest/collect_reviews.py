@@ -6,7 +6,6 @@ GAMES = {
     "crimson_desert": (3321460, 200000),
     "black_desert": (582660, 50000)
 }
-
 for game_title, (app_id, limit) in GAMES.items():
     cursor = "*"
     total = 0
@@ -29,7 +28,6 @@ for game_title, (app_id, limit) in GAMES.items():
                 }
             )
             if response.status_code != 200 or not response.text.strip():
-                print(f"빈 응답, 재시도...")
                 time.sleep(2)
                 continue
             data = response.json()
@@ -49,10 +47,7 @@ for game_title, (app_id, limit) in GAMES.items():
 
             total += len(reviews)
             cursor = data["cursor"]
-            print(f"[{game_title}] 수집 중... {total}개")
             time.sleep(0.5)
-
             if total >= limit:
                 break
-
     print(f"[{game_title}] 완료! 총 {total}개 → {filename}")
